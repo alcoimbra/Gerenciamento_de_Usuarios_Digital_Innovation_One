@@ -1,12 +1,16 @@
 package br.com.gerenciamentoDeUsuarios.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gerenciamentoDeUsuarios.entity.Person;
+import br.com.gerenciamentoDeUsuarios.dto.request.PersonDTO;
+import br.com.gerenciamentoDeUsuarios.dto.response.MessageResponseDTO;
 import br.com.gerenciamentoDeUsuarios.service.PersonService;
 import lombok.AllArgsConstructor;
 
@@ -19,7 +23,7 @@ public class PersonController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Person create(Person person) {
-		return personService.create(person);
+	public MessageResponseDTO create(@RequestBody @Valid PersonDTO personDTO) {
+		return personService.create(personDTO);
 	}
 }

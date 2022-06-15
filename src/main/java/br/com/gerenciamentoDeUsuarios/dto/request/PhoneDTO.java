@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 import br.com.gerenciamentoDeUsuarios.enums.PhoneType;
 
-public class CreatePhoneDTO {
+public class PhoneDTO {
 	
 	@Enumerated(EnumType.STRING)
 	private PhoneType phoneType;
@@ -15,4 +15,20 @@ public class CreatePhoneDTO {
 	@NotEmpty
 	@Size(min = 13, max = 14)
 	private String number;
+
+	public PhoneType getPhoneType() {
+		return phoneType;
+	}
+
+	public void setPhoneType(PhoneType phoneType) {
+		this.phoneType = phoneType;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
 }
