@@ -1,4 +1,4 @@
-package br.com.gerenciamentoDeUsuarios.entity;
+package br.com.gerenciamentoDeUsuarios.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
