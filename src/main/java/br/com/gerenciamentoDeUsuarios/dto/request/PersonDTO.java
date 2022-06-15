@@ -36,7 +36,7 @@ public class PersonDTO {
 	private String cpf;
 	
 	@NotNull
-	private LocalDate birthDate;
+	private String birthDate;
 	
 	@Valid
 	@NotEmpty
@@ -74,11 +74,11 @@ public class PersonDTO {
 		this.cpf = cpf;
 	}
 
-	public LocalDate getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,21 +34,15 @@ public class PersonService {
 	}
 	
 	public PersonDTO findById(Long id) throws PersonNotFoundException {
-		Optional<Person> person = personRepository.findById(id);
+		Person person = personRepository.findById(id)
+											.orElseThrow(() -> new PersonNotFoundException(id));
 		
-		if (person.isEmpty()) {
-			throw new PersonNotFoundException(id);
-		}
-		
-		return personMapper.toDTO(person.get());
+		return personMapper.toDTO(person);
 	}
 	
 	public MessageResponseDTO update(Long id, PersonDTO personDTO) throws PersonNotFoundException {
-		Optional<Person> person = personRepository.findById(id);
-		
-		if (person.isEmpty()) {
-			throw new PersonNotFoundException(id);
-		}
+		personRepository.findById(id)
+							.orElseThrow(() -> new PersonNotFoundException(id));
 		
 		Person updatedPerson = personMapper.toModel(personDTO);
 		Person savedPerson = personRepository.save(updatedPerson);
@@ -64,21 +57,14 @@ public class PersonService {
 		
 		return people.stream()
 						.map(personMapper::toDTO)
-						.collect(toList());
+						.collect(Collectors.toList());
 	}
 	
-	public MessageResponseDTO delete(Long id) throws PersonNotFoundException {
-		Optional<Person> person = personRepository.findById(id);
-		
-		if (person.isEmpty()) {
-			throw new PersonNotFoundException(id);
-		}
-		
-		personRepository.deleteById(id);
-		
-		MessageResponseDTO messageResponse = createMessageResponse("Person Successfully Deleted with ID ", id);
-		
-		return messageResponse;
+	public void delete(Long id) throws PersonNotFoundException {
+		 personRepository.findById(id)
+		 					.orElseThrow(() -> new PersonNotFoundException(id));
+		 
+		 personRepository.deleteById(id);
 	}
 	
 	private MessageResponseDTO createMessageResponse(String s, Long id2) {

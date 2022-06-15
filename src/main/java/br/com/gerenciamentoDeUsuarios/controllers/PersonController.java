@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -34,13 +35,13 @@ public class PersonController {
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public PersonDTO findById(Long id) throws PersonNotFoundException {
+	public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
 		return personService.findById(id);
 	}
 	
 	@PostMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public MessageResponseDTO update(Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+	public MessageResponseDTO update(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
 		return personService.update(id, personDTO);
 	}
 	
@@ -51,7 +52,7 @@ public class PersonController {
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public MessageResponseDTO delete(Long id) throws PersonNotFoundException {
+	public MessageResponseDTO delete(@PathVariable Long id) throws PersonNotFoundException {
 		return personService.delete(id);
 	}
 }
