@@ -1,9 +1,12 @@
 package br.com.gerenciamentoDeUsuarios.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +32,26 @@ public class PersonController {
 		return personService.create(personDTO);
 	}
 	
-	@GetMapping
+	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public PersonDTO findById(Long id) throws PersonNotFoundException {
 		return personService.findById(id);
+	}
+	
+	@PostMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public MessageResponseDTO update(Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+		return personService.update(id, personDTO);
+	}
+	
+	@GetMapping
+	public List<PersonDTO> listAll() {
+		return personService.listAll();
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public MessageResponseDTO delete(Long id) throws PersonNotFoundException {
+		return personService.delete(id);
 	}
 }
